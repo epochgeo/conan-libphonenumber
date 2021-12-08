@@ -1,0 +1,3 @@
+sources:
+  "8.12.27":
+    url: "https://github.com/google/libphonenumber/archive/refs/tags/v8.12.27.tar.gz"
