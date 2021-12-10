@@ -15,16 +15,21 @@ class LibphonenumberConan(ConanFile):
     url = "https://github.com/conan-io/conan-center-index"
     description = "Google's common Java, C++ and JavaScript library for parsing, formatting, and validating international phone numbers."
     exports_sources = ["CMakeLists.txt"]
-    generators = "cmake", "cmake_find_package"
+    generators = "cmake"
 
     # Binary configuration
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False], "fPIC": [True, False]}
-    default_options = {"shared": False, "fPIC": True}
+    default_options = {
+        "shared": False,
+        "fPIC": True,
+        "icu:shared": True,
+    }
 
     requires = [
-        "boost/[>=1.71]",
-        "protobuf/[>=3.15]",
+        "boost/1.71.0",
+        "icu/69.1",
+        "protobuf/3.15.5",
     ]
 
     @property
