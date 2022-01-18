@@ -18,12 +18,11 @@ class LibphonenumberConan(ConanFile):
     generators = "cmake"
 
     # Binary configuration
-    settings = "os", "compiler", "build_type", "arch"
+    settings = "os", "compiler", "arch"
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {
         "shared": False,
         "fPIC": True,
-        "icu:shared": True,
     }
 
     requires = [
@@ -57,6 +56,9 @@ class LibphonenumberConan(ConanFile):
         cmake = CMake(self)
         cmake.configure(build_folder=self._build_subfolder)
         cmake.install()
+        # This is kind of a silly way to avoid distributing .so files but it works.
+        if not self.options.shared:
+            self.run(f"rm -f {self._build_subfolder}/lib/*.so*")
 
     def package_info(self):
         self.cpp_info.libs = ["phonenumber"]
