@@ -29,6 +29,7 @@ class LibphonenumberConan(ConanFile):
         "boost/1.71.0",
         "icu/69.1",
         "protobuf/3.15.5",
+	"zlib/1.2.13"
     ]
 
     @property
@@ -41,7 +42,7 @@ class LibphonenumberConan(ConanFile):
 
     def source(self):
         url = f"https://github.com/google/libphonenumber/archive/refs/tags/v{self.version}.tar.gz"
-        tools.get(url=url, strip_root=True, destination=self._source_subfolder)
+        tools.get(url=url, strip_root=True, destination=self._source_subfolder, verify=False)
 
     def config_options(self):
         if self.settings.os == "Windows":
